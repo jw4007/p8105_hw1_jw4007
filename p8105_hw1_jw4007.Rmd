@@ -1,0 +1,57 @@
+---
+title: "p8105_hw1_jw4007"
+output: github_document
+date: "2022-09-15"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## Problem 1
+
+```{r penguins}
+data("penguins", package = "palmerpenguins")
+penguins
+nrow(penguins)
+ncol(penguins)
+mean_flipper = mean(penguins$flipper_length_mm, na.rm = TRUE)
+flipper_vs_bill = ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
+ggsave("flipper_vs_bill.png")
+```
+
+This data set includes the following variables: `r colnames(penguins)`. 
+
+There are `r nrow(penguins)` rows and `r ncol(penguins)` columns.
+
+The mean flipper length is `r round(mean_flipper, digits=2)`mm.
+
+## Problem 2
+```{r hw1_df}
+hw1_df = tibble(
+  random_sample = rnorm(10),
+  logical_vec = random_sample > 0,
+  character_vec = character(length = 10),
+  factor_vec = factor(x = character_vec, levels = 3)
+)
+
+hw1_df
+
+mean_samp = mean(pull(hw1_df, random_sample))
+mean_logical = mean(pull(hw1_df, logical_vec))
+mean_character = mean(pull(hw1_df, character_vec))
+mean_factor = mean(pull(hw1_df, factor_vec))
+
+```
+The mean of the random sample is `r round(mean_samp, digits = 2)`.
+
+The mean of the logical vector is `r round(mean_logical, digits = 2)`.
+
+The mean of the character vector is `r round(mean_character, digits = 2)` and the mean of the factor vector is `r round(mean_factor, digits = 2)`. These two cannot be taken mean because they are neither numeric nor logical.
+
+```{r hw1_df_convert, echo=TRUE, results='hide'}
+mean_character = mean(pull(hw1_df, character_vec.as.numberic))
+mean_factor = mean(pull(hw1_df, factor_vec.as.numberic))
+
+```

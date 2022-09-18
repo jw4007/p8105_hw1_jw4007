@@ -32,8 +32,8 @@ The mean flipper length is `r round(mean_flipper, digits=2)`mm.
 hw1_df = tibble(
   random_sample = rnorm(10),
   logical_vec = random_sample > 0,
-  character_vec = character(length = 10),
-  factor_vec = factor(x = character_vec, levels = 3)
+  character_vec = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
+  factor_vec = factor(c("low", "low", "low", "mid", "mid", "mid", "high", "high", "high", "high"))
 )
 
 hw1_df
@@ -50,8 +50,18 @@ The mean of the logical vector is `r round(mean_logical, digits = 2)`.
 
 The mean of the character vector is `r round(mean_character, digits = 2)` and the mean of the factor vector is `r round(mean_factor, digits = 2)`. These two cannot be taken mean because they are neither numeric nor logical.
 
-```{r hw1_df_convert, echo=TRUE, results='hide'}
-mean_character = mean(pull(hw1_df, character_vec.as.numberic))
-mean_factor = mean(pull(hw1_df, factor_vec.as.numberic))
+```{r, echo=TRUE, results='hide'}
 
+character_num = as.numeric(pull(hw1_df, character_vec))
+factor_num = as.numeric(pull(hw1_df, factor_vec))
+
+character_num 
+factor_num
+
+mean(character_num)
+mean(factor_num) 
 ```
+After using "as.numeric", the mean for the factor vector could be produced, but not the mean for the character vector. The reason is that the factor vector becomes a collection of 1, 2, and 3 after conversion but the character vector does not becomes number. This explain why the mean for the character vector still cannot be taken.
+
+
+

@@ -18,6 +18,9 @@ nrow(penguins)
 ncol(penguins)
 mean_flipper = mean(penguins$flipper_length_mm, na.rm = TRUE)
 flipper_vs_bill = ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
+
+flipper_vs_bill
+
 ggsave("flipper_vs_bill.png")
 ```
 
